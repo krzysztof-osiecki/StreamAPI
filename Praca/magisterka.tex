@@ -1,0 +1,134 @@
+\documentclass[a4paper,10pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[polutonikogreek, polish]{babel}
+\usepackage{indentfirst}
+\usepackage{polski}
+\usepackage{listings}
+\usepackage{mdframed}
+\usepackage{graphicx}\usepackage{fancyhdr}
+\usepackage{pdfpages}
+\lstset
+{ %Formatting for code in appendix
+	language=Java,
+	basicstyle=\footnotesize,
+	numbers=left,
+	stepnumber=1,
+	showstringspaces=false,
+	tabsize=1,
+	breaklines=true,
+	breakatwhitespace=false,
+}
+\newmdtheoremenv{theo}{Definicja}
+\frenchspacing
+\emergencystretch=1em
+
+%opening
+\title{Podejście funkcyjne do obsługi kolekcji w języku C++}
+\author{Krzysztof Osiecki}
+\begin{document}\pagestyle{fancy}\lhead{}\rightmark
+
+\maketitle
+\tableofcontents{}
+\chapter*{Wstęp}
+Programowanie samo w sobie jest procesem mającym na celu stworzenie działającego oprogramowania. W celu wykonania całego tego procesu podejmuje się wiele działań. Etapami procesu programowania są: projektowanie, testowanie i utrzymanie kodu, a także przede wszystkim to co może być przez niektórych utoższamiane z programowaniem, czyli pisanie kodu programów. Obecnie dąży się do strukturalizowania każdego z tych etapów. Powstały różne metodyki oraz modele, mające ułatwić zarządzanie wytwarzaniem oprogramowania. Są one różne w zależności od skali projektów, terminów czy stopnia wydajności bądź zdolności do podejmowania autonomicznych decyzji przez programistów. U podstaw każdej z metodyk leży ostatecznie kod programu. Kod, który może być napisany na wiele sposobów w wielu językach programowania. Podobnie jak w przypadku metodyk, języki różnią się między sobą stopniem dopasowania do konkretnych rozwiązań. W pierwszej części niniejszej pracy przedstawiona została szersza kategoria podejścia do tworzenia programów, wykraczająca poza określenie jej w obrębie jednego języka. W drugiej zaś części zaprezentowano próbę szerszej realizacji tego podejścia w języku C++.
+\chapter{Omówienie funkcyjnego paradygmatu programowania}
+\section{Czym jest paradygmat programowania}
+Wspomniana we stępie kategoria podejścia do tworzenia programów określana jest mianem paradygmatu programowania. Paradygmat nie jest określany przez język programowania, lecz przez sposób w jaki programista opisuje problem, który rozwiązuje. Paradygmaty podzielić można na dwie główne grupy. Paradygmat imperatywny oraz deklaratywny. W paradygmacie imperatywnym, motywem przewodnim programu jest instrukcja. Instrukcja stanowi rozkaz dla procesora, zaś program składa się z wykonania odpowiedniej ilości takich rozkazów. MORE... W paradygmacie deklaratywnym z kolei program stanowi opis rozwiązania. Programista nie odpowiada, za instruowanie procesora jak ma wykonywać poszczególne czynności. Opisuje tylko spodziewany rezultat, a właściwie cechy tego rezultatu. Zadaniem komputera, a w zasadzie kompilatora, bądź interpretera, konkretnego języka jest odpowienie dopasowanie działań w celu uzyskania odpowiednich rezultatów. MORE... W praktyce rzadko spotyka się języki w całości oparte tylko na jednym paradygmacie. Wynika to z ograniczeń jakie muszą być realizowane w celu pełnego spełnienia założeń, każdego z nich. Najczęściej okazuje się, że idealnym rozwiązaniem jest połączenie najlepszych cech każdego z nich. W pratyce określenie paradygmat często wymienia się na programowanie. Oznacza to, że pojęcia programowanie deklaratywne i paradygmat deklaratywny są tożsame, dlatego będą w niniejszej pracy stosowane wymiennie.
+\section{Cechy paradygmatu funkcyjnego}
+Programowanie funkcyjne jest odmianą programowania deklaratywnego. Główną cechą tego paradygmatu jest skupienie uwagi na funkcjach i obliczaniu ich wartości. W programowaniu funkcyjnym, funkcja zachowuje się tak samo jak funkcja matematyczna. To znaczy, że dla parametrów dla których jest poprawnie zdefiniowana, będzie zawsze zwracać tą samą wartość. Wykonanie programu polega zatem na obliczeniu wartości składających się na niego funkcji.
+\section{Efekty uboczne, w programowaniu funkcyjnym}
+Ważną cechą funkcji w sensie matematycznym jest jej bezstanowość. Każda funkcja matematyczna posiada swoją definicję, która określa jej wynik w zależności od zadanych argumentów. Dla określonego zbioru argumentów funkcja zawsze zwróci ustaloną warość. Niezależnie od czynników zewnętrznych ani ilości jej wywołań. Programowanie funkcyjne jako bazujące silnie na matematycznych podstawach, stara się emulować takie zachowanie funkcji. W programowaniu imperatywnym sytuacja wygląda inaczej. Można powiedzieć, że większą część programowania imperatywnego stanowi coś co określa się mianem \verb|efektów ubocznych|. Każde zachowanie funkcji (tutaj programistycznej, nie matematycznej) nie będące wyliczeniem i zwróceniem wartości nazywane jest efektem ubocznym. W przypadku imperatywnego programowania będą to na przykład: operacje obsługi wejścia/wyjścia, utworzenie zmiennej, czy obiektu w pamięci, modyfikacja struktury danych. Z funkcyjnego punktu widzenia, tego typu operacje są \verb|brudne| i nie pozwalają na zachowanie czystości języka funkcyjnego. Trudno jednak nie zauważyć jak wielkie znaczenie w świecie obecnego tworzenia oprogramowania odgrywa możliwość interakcji użytkownika z systemem. A skoro operacje wejścia/wyjścia nie są dozwolone w języku funkcyjnym, nie trudno się domyślić, że tego typu język raczej nie ma szans podbić komercyjnego rynku.
+\section{Dlaczego paradygmat funkcyjny?}
+Pomimo tej wady, paradygmat funkcyjny posiada cechy, które niewątpliwie stanowią jego ogromną zaletę. Sprawiły one, że nie został on zapomniany, a raczej powraca co jakiś czas w różnych formach i znajduje drogę do najpopularniejszych współcześnie języków. Przede wszystkim jako podzbiór paradygmatu deklaratywnego, programowanie funkcyjne nie wymaga od nas, konkretnego opisu działania, lecz opisu oczekwianego przez nas wyniku. Dodatkowo potraktowanie funkcji jako \verb|obywatela pierwszej kategorii| sprawia, że normalnym staje się możliwość przekazania jednej funkcji jako parametru drugiej i wywołania jej kiedy będzie potrzebna, z argumentami, któe w momencie jej tworzenia mogły być nie dostępne. Daje to w ręce programisty naprawde potężne narzędzie, w przypadku aplikacji sterowanych zdarzeniowo. Na koniec zostawiam cechę, która sprawia, że w ogóle następują próby wplatania paradygmatu funkcyjnego do imperatywnych języków (przecież, imperatywnie i tak można te operacje wykonać). Cechą tą jest składnia, która w językach funkcyjnych jest niezwykle atrakcyjna dla programisty. Korzystając z funkcyjnych interfejsów, nie spotkamy kodu w którym przez piętnaście kolejnych linii definiujemy zmienne, po to żeby w szesnastej utworzyć z ich pomocą obiekt, a w siedemnastej wykonać na tym obiekcie jakąś metodę. Operacja sortowania w programowaniu funkcyjnym wymaga od nas kolekcji do posortowania i funkcji definiującej liniowy porządek na obiektach tej kolekcji. Jest to oczywiście tylko i wyłącznie kwestia odpowiednio wysokopoziomowego API. Jednak utworzenie go w sposób przyjazny dla użytkownika jest dużo łatwiejsze w językach, które paradygmat funkcyjny starają się adaptować, niż w tych, które zdecydowanie go odrzucają.
+\section{Wyrażenia lambda i referencje metod jako sposób realizacji paradygmatu}
+\section{Realizacja paradygmatu w języku Java}
+\section{Realizacja paradygmatu w języku C\#}
+\section{Realizacja paradygmatu w języku JavaScript}
+\section{Realizacja paradygmatu w języku C++}
+\section{Kolekcje jako strumienie danych}
+\chapter{Zalety programowania funkcyjnego w rozwiązaniach praktycznych}
+\section{Podstawowe problemy i zadania w programowaniu aplikacji biznesowych}
+Biznes wymaga oprogramowania. Ta kwestia nie podlega wątpliwości. Aplikacje bankowe, kasy w sklepach, giełda czy obecnie nawet telefony menadżerów, wszystkie te urządzenia i dziedziny wymagają odpowiednich programów pozwalających im wykonywać określone zadania. Popularność technologii informatycznych sprawia, że w zasadzie każda firma chcąca się rozwijać musi z tychże technologii korzystać. Czy to tworząc stronę internetową, czy monitorując pracowników, zarządzając urlopami czy katalogując zamówienia. O ile istnieją oczywiście sektory, w których od programisty wymaga się algorytmicznego myślenia, takie jak rynek procesorów, kart graficznych, badania naukowe czy związana blisko z biznesem kryptografia, to doświadczenie autora pozwala twierdzić, że więksość informatyków znajdzie zatrudnienie przy znacznie mniej wymagających zadaniach. Poziom mocy obliczeniowej obecnych komputerów pozwala nam w wielu przypadkach nie przejmować się złożonością obliczeniową czy pamięciową podejmowanych przez programy działań (oczywiście w granicach rozsądku). Do tego z poziomu biznesu, oprogramowanie jest niczym innym jak tylko kosztem. Kosztem uzasadnionym z którym się pogodzono, ale jednak kosztem. A koszta należy minimalizować, dlatego jeśli menadżer projektu stanie przed wyborem pozostawienia programisty zarabiającego pięć tysięcy złotych na miesiąc z problemem optymalizacji algorytmu, albo zakupienia szybszego procesora z trzy tysiące złotych, z radością kupi procesor i przypisze sobie zasługi oszczędzenia dwóch tysięcy. Oczywiście gdyby tego typu problemy były częste, należałby szukać programisty, który na tego typu zadanie będzie potrzebował tydzień zamiast miesiąca. Jednak w codziennej pracy tego typu problemy prawie nie występują. Deweloperzy produkują prawie seryjnie aplikacje, które z ich punktu widzenia niczym się od siebie nie różnią. Implementacja sklepu internetowego sprzedającego traktory i sklepu sprzedającego koszule, są tym samym zadaniem. Różnią się etykiety, zdjęcia i cena. Zadanie dla programisty jest jednak w obu przypadkach takie samo. 
+\begin{enumerate}
+	\item Odczyt danych z bazy. 
+	\item Przekazanie ich do warstwy widoku. 
+	\item Wyświetlenie ich dla klienta.
+	\item Przyjęcie danych od klienta.
+	\item Przekazanie ich do warstwy bazy danych
+	\item Zapis danych do bazy.
+\end{enumerate}
+Jak widać punkty trzeci i czwarty są nieuniknione. W końcu to klient jest powodem powstania aplikacji, nie da się go z niej wyeliminować. Punkty pierwszy i drugi również są konieczne. Czy nazwiemy to bazą danych, czy systemem plików, musi istnieć miejsce, w którym dane będą przechowywane. Chociażby po to, żeby wiedzieć co należy zrobić. Wspomniane punkty, można oczywiście rozszerzać o dodatkowe operacje, takie jak wysłanie maila, wydrukowanie faktury czy wykonanie przelewu on-line. Nie są to jednak zagadnienia wpływające na kształt procesu. Pozostają więc punkty drugi i piąty. Łatwo zauważyć, że gdyby dane w bazie znajdowały się w postaci możliwej do zrozumienia przez klienta można byłoby te kroki wyeliminować. Wiemy jednak, że tak nie jest. Komputery preferują inny sposób prezentacji danych od człowieka. Skoro te kroki są więc konieczne, należy sprawić; z punktu widzenia menadżera, żeby były jak najtańsze; z punktu widzenia programisty, żeby były jak najmniej uciążliwe. I w tym właśnie momencie pojawia się okazja do wykorzystania programowania funkcyjnego.
+\section{Porównanie różnic podejścia funcyjnego i imperatywnego w rozwiązywaniu problemów}
+Z poprzedniego paragrafu wiemy, że w celu optymalizacji procesu tworzenia należy skupić się na przyspieszeniu obsługi przetwarzania danych. Konkretnie tłumaczenia ich z formatu zrozumiałego przez komputer do formatu rozumianego przez użytkownika. Operacje tego typu również są zazwyczaj schematyczne i przewidywalne. Najczęściej należy iterować uzyskaną z bazy danych kolekcję odpowiednio ją filtrując i modyfikując. Kończy się to zazwyczaj serią pętli oraz tworzenia tymczasowych kolekcji. Kod odpowiedzialny za tego typu zadania określany jest w żargonie \verb|boilerplate|. Określenie to oznacza kod, który nie służy żadnym praktycznym celom, jest jednak konieczny ze względu na wymagania języka; na przykład \verb|gettery| i \verb|settery|, czy instrukcje tworzenia tymczasowych obiektów. Jak już zostało wspomniane, zadania tego typu są kosztem, który należy minimalizować. Z pomocą przychodzą aspekty programowania funkcyjnego. Strumienie i wyrażenia lambda pozwalają na iterowanie kolekcji \verb|w miejscu|, obiekty pośrednie są tworzone automatycznie. Wyrażenia filtrujące mogą być składane w łańcuchy, pozwalając na szybkie i proste tworzenie zaawansowanych przekształceń. Choć początkowe może nie wyglądać to na duży zysk, w szerszej perspektywie kumuluje się do pokaźnych zysków czasowych podczas tworzenia oprogramowania. Porównajmy zatem rozwiązania tego samego problemu na sposób imperatywny (listing \ref{lst:old}) oraz funkcyjny (listing \ref{lst:new}).
+\begin{lstlisting}[caption={Podejście imperatywne},label={lst:old},language=Java]
+public Collection<People> imperative(Collection<User> users) {
+	List<Person> people = new ArrayList<>();
+	for (User user : users) {
+		if (user.getBirthday().after(new Date(1999, 12, 1))
+		    && user.getRole() == UserRole.GUEST) {
+	    Person person = new Person(user.getName(), user.getLastName());
+	    people.add(person);
+	    }
+	}
+	return people;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Podejście funkcyjne},label={lst:new},language=Java]
+public Collection<People> functional(Collection<User> users) {
+	return users.stream()
+	    .filter(user -> user.getBirthday().after(new Date(1999, 12, 1)))
+	    .filter(user -> user.getRole() == UserRole.GUEST)
+	    .map(user -> new Person(user.getName(), user.getLastName()))
+	    .collect(toList());
+}
+\end{lstlisting}
+Choć przykład jest prosty i niewiele zyskujemy w kontekście ilości linii kodu. To już tutaj da się dotrzec pewne zyski. Wystarczy spróbować dokonać analizy logicznej tego co próbujemy uzyskać. Otrzymujemy kolekcję użytkowników, przyjmijmy, że klasa \verb|User| jest klasą przedstawiającą obiekt bazodanowy. Chcemy wyfiltrować użytkowników urodzonych po 1. grudnia 1999 roku, których rola w systemie to \verb|GUEST|. Na podstawie wyfiltrowanej kolekcji chcemy utworzyć kolekcję obiektów typu \verb|People| (przyjmijmy, że są to obiekty zrozumiałe dla użytkownika, które można przedstawić na interfejsie).
+\paragraph{}
+Jeśli problem postawiony jest w ten sposób, funkcyjne podejście dużo bardziej odpowiada temu co chcemy uzyskać. Bierzemy otrzymaną kolekcję, musimy zawołać na niej metodę \verb|stream()| (to w zasadzie cały \verb|boilerplate| w tej metodzie), a następnie
+dokonujemy po kolei opisanych transformacji. Operacja filter ograniczająca datę urodzenia. Następnie operacja sprawdzająca rolę użytkownika (operacja ta wydzielona jest dla czytelności przykładu, można złożyć oba wywołania filter w jedno przy pomocy operatora
+\verb|&&|). W lini 5 przykładu znajduje się mapowanie obiektów \verb|User| na odpowiadające im \verb|Person|. Ostania linia to zebranie wartości w kolekcję, którą chcemy zwrócić.
+\paragraph{}
+Podejście iteracyjne od początku prezentuje inny sposób myślenia. Na początku musimy stworzyć wynikową kolekcję, potem iterować tą którą otrzymaliśmy i dopiero wewnątrz pętli, dokonujemy analizy warunku. Samodzielnie też dokonujemy dodania elementu do wynikowej kolekcji. Można powiedzieć, że żadna z tych operacji nie jest specjalnie skomplikowana, dlatego nie ma żadnej różnicy w zastosowanych podejściach. Różnice jednak są i przy dużej ilości tego typu kodu objawiają się w sposób znaczący.
+\paragraph{}
+Po pierwsze podejście funkcyjne jest bliższe opisowi rozwiązania problemu, a co za tym idzie wymaga mniejszej analizy tego co należy napisać. Jako osoba przyzwyczajona do programowania funkcyjnego, pisząc przykład imperatywny, zacząłem od pętli iterującej po użytkownikach, dopiero po napisaniu \verb|ifa| orientując się, że potrzebuje kolekcji do której dodam wyniki. Często pomijanym szczegółem jest stopień zagnieżdzenia kodu. W przypadku dodania kolejnego warunku w podejściu funkcyjnym, dodamy po prostu koleją instrukcję \verb|filter|, a kolejne mapowanie (na przykład na ciągi znaków z imieniem) to instrukcja \verb|map|. Dla podejścia imperatywnego, albo rozbudowujemy warunek \verb|ifa| albo zagnieżdżamy jednego w drugim, co nie jest zachowaniem porządanym. Większość programistów uważa kod z ilością zagnieżdżonych instrukcji większą niż trzy za mało czytelny. Kolejnym elementem jest samo stworzenie wyniku. Gdyby okazało się, że metoda powinna zwracać \verb|Set| osób to w przykładzie funkcyjnym zmieni się tylko funkcja przekazana do metody \verb|collect| (będzie to \verb|toSet()|), zaś w przykładzie imperatywnym zarówno linia tworząca kolekcję jak i dodająca element (\verb|Set| posiada metodę \verb|put| zamiast \verb|add|).
+\section{Analiza przykładowych rozwiązań w przypadku różnych paradygmatów}
+Przykłady z poprzedniego rozdziału pokazują, część zysków które wynikają z funkcyjnego podejścia do rozwiązania problemów. Zalet jest jednak więcej. Listingi \ref{lst:oldGrouping}  i \ref{lst:newGrouping} pokazują różnice o ile łatwiej można pogrupować kolekcję przy użyciu podejścia funkcyjnego.
+\begin{lstlisting}[caption={Podejście imperatywne},label={lst:oldGrouping},language=Java]
+public void imperativeGrouping(Collection<User> users) {
+    Map<UserRole, List<User>> result = new HashMap<>();
+    for (User user : users) {
+	    List<User> usersWithRole = result.get(user.getRole());
+	    if (usersWithRole == null) {
+		    usersWithRole = new ArrayList<>();
+		    usersWithRole.add(user);
+		    result.put(user.getRole(), usersWithRole);
+	    } else {
+		    usersWithRole.add(user);
+	    }
+    }
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Podejście funkcyjne},label={lst:newGrouping},language=Java]
+public void functionalGrouping(Collection<User> users) {
+	Map<UserRole, List<User>> result = users.stream().collect(groupingBy(User::getRole));
+}
+\end{lstlisting}
+\paragraph{}
+Przykład imperatywny wymaga tworzenia wszystkich kolekcji, specyfika mapy powoduje konieczność sprawdzania czy lista już istnieje i w razie konieczności utworzenia jej. Po raz kolejny, żadna z operacji nie jest specjalnie skomplikowana. Jest to jednak dość długa sekwencja zadań. Po raz kolejny także rozwiązanie nie jest prostą realizacją opisu w języku naturalnym. Oczekiwane rozwiązanie to otrzymanie kolekcji użytkowników pogrupowanych na podstawie roli jaką pełnią. Tymczasem program polega na tworzeniu list użytkowników, tworzeniu mapy wynikowej, sprawdzaniu czy dane listy już istnieją i uzupełnianiu ich wartości. 
+\paragraph{}
+Rozwiązanie funkcyjne pokazuje w pełni deklaratywną stronę programowania funkcyjnego. Cały program to jedna linia, która jest w zasadzie opisem problemu. Na początek \verb|boilerplate| w postaci \verb|stream|, czyli instrukcja dla komputera aby traktować kolekcję jako strumień danych. Następnie \verb|collect| czyli rozkaz zebrania użytkowników do jakieś wynikowej kolekcji. \verb|groupingBy| stanowi opis sposobu wykonania tego rozkazu, jest to funkcja zbierająca iterowane obiekty w grupy (mapę). Parametrem instrukcji \verb|groupingBy|, jest funkcja określająca własność, która stanowi o przynależności do konkretnej grupy. Funkcja przekazana jest jako referencja metody pobierającej role z obiektu użytkownika.
+\paragraph{}
+Funkcyjne rozwiązanie problemu jest zdecydowanie prostsze. Mniej kodu do napisania i mniej analizy tego co należy napisać, oznacza mniej możlwości popełnienia błędu. W rozwiązaniu funkcyjnym nie ma w zasadzie miejsca w którym można się pomylić. 
+\chapter{Analiza wydajności istniejących rozwiązań funkcyjnych}
+\section{Prezentacja zakresu testów i opis środowiska}
+\section{Kryteria wyboru rozwiązań wraz z przedstawieniem wybranych}
+\section{Przedstawienie i analiza wyników}
+\chapter{Prezentacja opracowanego rozwiązania}
+\section{Prezentacja zakresu możliwości przygotowanego rozwiązania}
+\section{Porównanie przygotowanego API z istniejącymi w innych językach}
+\section{Testy weryfikujące wydajność rozwiązania względem natywnego języka C++}
+\section{Testy przygotowanego API w porównaniu z innymi gotowymi rozwiązaniami}
+\section{Prezentacja oceny ergonomi przygotowanego rozwiązania}
+
+\end{document}
