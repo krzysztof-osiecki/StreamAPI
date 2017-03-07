@@ -1,0 +1,3 @@
+C:/Users/Kylo55/ClionProjects/StreamApi/cmake-build-debug/CMakeFiles/StreamApi.dir
+C:/Users/Kylo55/ClionProjects/StreamApi/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Kylo55/ClionProjects/StreamApi/cmake-build-debug/CMakeFiles/rebuild_cache.dir

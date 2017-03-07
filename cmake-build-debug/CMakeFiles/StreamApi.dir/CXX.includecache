@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Kylo55/ClionProjects/StreamApi/main.cpp
+stream.hpp
+C:/Users/Kylo55/ClionProjects/StreamApi/stream.hpp
+
+C:/Users/Kylo55/ClionProjects/StreamApi/stream.hpp
+iostream
+-
+vector
+-
+queue
+-
+functional
+-
+

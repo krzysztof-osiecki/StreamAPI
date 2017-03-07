@@ -1,0 +1,4 @@
+"C:\Program Files (x86)\JetBrains\CLion 171.3691.13\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Kylo55\ClionProjects\StreamApi
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/Kylo55/ClionProjects/StreamApi/cmake-build-debug
