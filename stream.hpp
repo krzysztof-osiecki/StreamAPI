@@ -6,162 +6,189 @@
 #include <queue>
 #include <functional>
 
-class streamAlreadyConsumedException {
-};
+namespace stream {
 
-template<class T>
-class stream;
+    class streamAlreadyConsumedException {
+    };
 
-template<class T, class... Args>
-class streamOperation;
+    template<class T>
+    class stream;
 
-template<class T>
-class stream {
+    template<class T, class... Args>
+    class streamOperation;
 
-public:
-    stream();
+    template<class T>
+    class stream {
 
-    stream(std::vector<T> *data);
+    public:
+        stream();
 
-    stream<T> *filter(std::function<bool(T)> predicate);
+        stream(const std::vector<T> &data);
 
-    std::vector<T> *toVector();
+        bool allMatch();
 
-    template<class R>
-    stream<R> *map(std::function<R(T)> mappingFunction);
+        bool anyMatches();
 
-    stream<T> *peek();
+        T find();
 
-protected:
-    stream(std::vector<T> *data, std::vector<streamOperation<bool(T)> *> *predicates);
+        stream<T> *filter(std::function<bool(T)> predicate);
 
-    bool executePredicateOperation(streamOperation<bool(T)> *operation, T value);
+        std::vector<T> *toVector();
 
-    template<class R>
-    R executeMappingOperation(streamOperation<R(T)> *operation, T value);
+        template<class R>
+        stream<R> *map(std::function<R(T)> mappingFunction);
 
-    void checkConsumed(bool consume);
+        stream<T> *peek();
 
-private:
-    std::vector<streamOperation<bool(T)> *> *predicates;
-    std::vector<T> *underlyingVector;
-    bool consumed;
-};
+    protected:
+        stream(const std::vector<T> &data, std::vector<streamOperation<bool(T)> *> *predicates);
 
-template<class T, class... Args>
-class streamOperation<T(Args...)> {
-public:
-    std::function<T(Args ...)> *fun;
+        bool executePredicateOperation(streamOperation<bool(T)> *operation, T value);
 
-    streamOperation(std::function<T(Args ...)> *fun) {
-        this->fun = fun;
-    }
-};
+        template<class R>
+        R executeMappingOperation(streamOperation<R(T)> *operation, T value);
 
-template<class T>
-stream<T>::stream(std::vector<T> *data, std::vector<streamOperation<bool(T)> *> *predicates) {
-    this->underlyingVector = data;
-    this->predicates = predicates;
-    this->consumed = false;
-}
+        void checkConsumed(bool consume);
 
-template<class T>
-stream<T>::stream(std::vector<T> *data) {
-    this->underlyingVector = data;
-    this->predicates = new std::vector<streamOperation<bool(T)> *>();
-    this->consumed = false;
-}
+    private:
+        std::vector<streamOperation<bool(T)> *> *predicates;
+        std::vector<T> *underlyingVector;
+        bool consumed;
 
-template<class T>
-stream<T>::stream() {
-    this->underlyingVector = new std::vector<T>();
-    this->predicates = new std::vector<streamOperation<bool(T)> *>();
-    this->consumed = false;
-}
+    };
 
-template<class T>
-stream<T> *stream<T>::filter(std::function<bool(T)> predicate) {
-    checkConsumed(false);
-    auto *op = new streamOperation<bool(T)>(&predicate);
-    predicates->push_back(op);
-    return this;
-}
+    template<class T, class... Args>
+    class streamOperation<T(Args...)> {
+    public:
+        std::function<T(Args ...)> *fun;
 
-template<class T>
-template<class R>
-stream<R> *stream<T>::map(std::function<R(T)> mappingFunction) {
-    streamOperation<R(T)> *op = new streamOperation<R(T)>(&mappingFunction);
-    std::vector<T> *filtered = this->toVector();
-    std::vector<R> *result = new std::vector<R>();
-    for (typename std::vector<T>::iterator it = filtered->begin();
-         it != underlyingVector->end();) {
-        T v = (*it);
-        auto val = this->executeMappingOperation(op, v);
-        result->push_back(val);
-        ++it;
-    }
-    return new stream<R>(result);
-}
-
-
-template<class T>
-std::vector<T> *stream<T>::toVector() {
-    checkConsumed(true);
-    for (typename std::vector<T>::iterator it = underlyingVector->begin(); it != underlyingVector->end();) {
-        auto remove = false;
-        T v = (*it);
-        for (typename std::vector<streamOperation<bool(T)> *>::iterator oIt = predicates->begin();
-             oIt != predicates->end(); ++oIt) {
-            auto val = this->executePredicateOperation(*oIt, v);
-            if (!val) {
-                remove = true;
-                break;
-            }
+        streamOperation(std::function<T(Args ...)> *fun) {
+            this->fun = fun;
         }
-        if (remove) underlyingVector->erase(it);
-        else ++it;
-    }
-    return underlyingVector;
-}
+    };
 
-template<class T>
-stream<T> *stream<T>::peek() {
-    for (typename std::vector<T>::iterator it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
-        auto remove = false;
-        T v = (*it);
-        for (typename std::vector<streamOperation<bool(T)> *>::iterator oIt = predicates->begin();
-             oIt != predicates->end(); ++oIt) {
-            auto val = this->executePredicateOperation(*oIt, v);
-            if (!val) {
-                remove = true;
-                break;
-            }
+    template<class T>
+    stream<T>::stream(const std::vector<T> &data, std::vector<streamOperation<bool(T)> *> *predicates) {
+        this->underlyingVector = new std::vector<T>(data);
+        this->predicates = predicates;
+        this->consumed = false;
+    }
+
+    template<class T>
+    stream<T>::stream(const std::vector<T> &data) {
+        this->underlyingVector = new std::vector<T>(data);
+        this->predicates = new std::vector<streamOperation<bool(T)> *>();
+        this->consumed = false;
+    }
+
+    template<class T>
+    stream<T>::stream() {
+        this->underlyingVector = new std::vector<T>();
+        this->predicates = new std::vector<streamOperation<bool(T)> *>();
+        this->consumed = false;
+    }
+
+    template<class T>
+    stream<T> *stream<T>::filter(std::function<bool(T)> predicate) {
+        checkConsumed(false);
+        auto *op = new streamOperation<bool(T)>(&predicate);
+        predicates->push_back(op);
+        return this;
+    }
+
+    template<class T>
+    T stream<T>::find() {
+        std::vector<T> *pVector = this->toVector();
+        return pVector->empty() ? NULL : pVector->front();
+    }
+
+    template<class T>
+    bool stream<T>::anyMatches() {
+        return !toVector()->empty();
+    }
+
+    template<class T>
+    bool stream<T>::allMatch() {
+        unsigned int fullSize = underlyingVector->size();
+        return toVector()->size() == fullSize;
+    }
+
+    template<class T>
+    template<class R>
+    stream<R> *stream<T>::map(std::function<R(T)> mappingFunction) {
+        streamOperation<R(T)> *op = new streamOperation<R(T)>(&mappingFunction);
+        std::vector<T> *filtered = toVector();
+        std::vector<R> *result = new std::vector<R>();
+        for (typename std::vector<T>::iterator it = filtered->begin();
+             it != underlyingVector->end();) {
+            T v = (*it);
+            auto val = this->executeMappingOperation(op, v);
+            result->push_back(val);
+            ++it;
         }
-        if (!remove) std::cout << v << " ";
+        return new stream<R>(*result);
     }
-    std::cout << std::endl;
-    return this;
-}
 
-template<class T>
-bool stream<T>::executePredicateOperation(streamOperation<bool(T)> *operation,
-                                          T value) {
-    auto function = (*operation->fun);
-    return function(value);
-}
 
-template<class T>
-template<class R>
-R stream<T>::executeMappingOperation(streamOperation<R(T)> *operation,
-                                     T value) {
-    auto function = (*operation->fun);
-    return function(value);
-}
+    template<class T>
+    std::vector<T> *stream<T>::toVector() {
+        checkConsumed(true);
+        for (typename std::vector<T>::iterator it = underlyingVector->begin(); it != underlyingVector->end();) {
+            auto remove = false;
+            T v = (*it);
+            for (typename std::vector<streamOperation<bool(T)> *>::iterator oIt = predicates->begin();
+                 oIt != predicates->end(); ++oIt) {
+                auto val = this->executePredicateOperation(*oIt, v);
+                if (!val) {
+                    remove = true;
+                    break;
+                }
+            }
+            if (remove) underlyingVector->erase(it);
+            else ++it;
+        }
+        return underlyingVector;
+    }
 
-template<class T>
-void stream<T>::checkConsumed(bool consume) {
-    if (this->consumed) throw new streamAlreadyConsumedException();
-    this->consumed = consume;
+    template<class T>
+    stream<T> *stream<T>::peek() {
+        for (typename std::vector<T>::iterator it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
+            auto remove = false;
+            T v = (*it);
+            for (typename std::vector<streamOperation<bool(T)> *>::iterator oIt = predicates->begin();
+                 oIt != predicates->end(); ++oIt) {
+                auto val = this->executePredicateOperation(*oIt, v);
+                if (!val) {
+                    remove = true;
+                    break;
+                }
+            }
+            if (!remove) std::cout << v << " ";
+        }
+        std::cout << std::endl;
+        return this;
+    }
+
+    template<class T>
+    bool stream<T>::executePredicateOperation(streamOperation<bool(T)> *operation,
+                                              T value) {
+        auto function = (*operation->fun);
+        return function(value);
+    }
+
+    template<class T>
+    template<class R>
+    R stream<T>::executeMappingOperation(streamOperation<R(T)> *operation,
+                                         T value) {
+        auto function = (*operation->fun);
+        return function(value);
+    }
+
+    template<class T>
+    void stream<T>::checkConsumed(bool consume) {
+        if (this->consumed) throw new streamAlreadyConsumedException();
+        this->consumed = consume;
+    }
 }
 
 #endif
