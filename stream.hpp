@@ -43,8 +43,6 @@ namespace stream {
     protected:
         stream(const std::vector<T> &data, std::vector<streamOperation<bool(T)> *> *predicates);
 
-        bool executePredicateOperation(streamOperation<bool(T)> *operation, T value);
-
         template<class R>
         R executeMappingOperation(streamOperation<R(T)> *operation, T value);
 
@@ -133,31 +131,31 @@ namespace stream {
     template<class T>
     std::vector<T> *stream<T>::toVector() {
         checkConsumed(true);
-        for (typename std::vector<T>::iterator it = underlyingVector->begin(); it != underlyingVector->end();) {
+        std::vector<T> *result = new std::vector<T>();
+
+        for (auto it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
             auto remove = false;
             T v = (*it);
-            for (typename std::vector<streamOperation<bool(T)> *>::iterator oIt = predicates->begin();
-                 oIt != predicates->end(); ++oIt) {
-                auto val = this->executePredicateOperation(*oIt, v);
+            for (auto oIt = predicates->begin(); oIt != predicates->end(); ++oIt) {
+                auto val = (*(*oIt)->fun)(v);;
                 if (!val) {
                     remove = true;
                     break;
                 }
             }
-            if (remove) underlyingVector->erase(it);
-            else ++it;
+            if (!remove) result->push_back(v);
         }
-        return underlyingVector;
+        return result;
     }
 
     template<class T>
     stream<T> *stream<T>::peek() {
-        for (typename std::vector<T>::iterator it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
+        for (auto it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
             auto remove = false;
             T v = (*it);
-            for (typename std::vector<streamOperation<bool(T)> *>::iterator oIt = predicates->begin();
+            for (auto oIt = predicates->begin();
                  oIt != predicates->end(); ++oIt) {
-                auto val = this->executePredicateOperation(*oIt, v);
+                auto val = (*(*oIt)->fun)(v);;
                 if (!val) {
                     remove = true;
                     break;
@@ -167,13 +165,6 @@ namespace stream {
         }
         std::cout << std::endl;
         return this;
-    }
-
-    template<class T>
-    bool stream<T>::executePredicateOperation(streamOperation<bool(T)> *operation,
-                                              T value) {
-        auto function = (*operation->fun);
-        return function(value);
     }
 
     template<class T>

@@ -6,8 +6,12 @@
 \usepackage{polski}
 \usepackage{listings}
 \usepackage{mdframed}
-\usepackage{graphicx}\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
 \usepackage{pdfpages}
+\usepackage{hyperref}
+\usepackage{tabularx} 
+
 \lstset
 { %Formatting for code in appendix
 	language=Java,
@@ -125,10 +129,71 @@ Funkcyjne rozwiązanie problemu jest zdecydowanie prostsze. Mniej kodu do napisa
 \section{Kryteria wyboru rozwiązań wraz z przedstawieniem wybranych}
 \section{Przedstawienie i analiza wyników}
 \chapter{Prezentacja opracowanego rozwiązania}
-\section{Prezentacja zakresu możliwości przygotowanego rozwiązania}
+\section{Kod źródłowy}
+\lstinputlisting[language=c]{../stream.hpp}
+\paragraph{}
+Prezentowany kod dostępny jest także w sieci pod adresem \hyperref[https://github.com/krzysztof-osiecki/StreamAPI]{https://github.com/krzysztof-osiecki/StreamAPI}
+\section{Opis zakresu możliwości przygotowanego rozwiązania}
 \section{Porównanie przygotowanego API z istniejącymi w innych językach}
 \section{Testy weryfikujące wydajność rozwiązania względem natywnego języka C++}
-\section{Testy przygotowanego API w porównaniu z innymi gotowymi rozwiązaniami}
-\section{Prezentacja oceny ergonomi przygotowanego rozwiązania}
+Czas wykonania każdego z testów mierzony był z pomocą następującej struktury:
+\begin{lstlisting}[caption={Pomiar czasu\cite{timer}},label={lst:timer},language=c]
+template<typename TimeT = std::chrono::milliseconds>
+struct measure {
+	template<typename F, typename ...Args>
+	static typename TimeT::rep execution(F &&func, Args &&... args) {
+	auto start = std::chrono::steady_clock::now();
+	std::forward<decltype(func)>(func)(std::forward<Args>(args)...);
+	auto duration = std::chrono::duration_cast<TimeT>
+		(std::chrono::steady_clock::now() - start);
+	return duration.count();
+	}
+};
+\end{lstlisting}
+\paragraph{}
+Testy wykonane były w dwóch wartiantach, \verb|dużym|, w którym kolekcja zawierała milion elementów, oraz \verb|małym| w którym elementów było dziesięć tysięcy. Dla wartości mniejszej wszystkie wykonania trwały mniej niż 1ms. Bazową kolekcję stanowił \verb|std:vector|. Czas przygotowywania danych nie był wliczany do czasu trwania testu. Wszystkie testy wykonano na tej samej maszynie testowej. Był to komputer wyposażony w procesor Intel Core i5-4460 3.2GHz oraz 8GB pamięci RAM. Komputer pracował na 64 bitowej wersji systemu Windows 10. Do kompilacji posłużył kompilator g++ zapewniany przez środowisko MinGW w wersji 3.20. Do budowania projektu posłużyło narzędzie CMake. 
+Wykorzystano siedem różnych podejść w celu sprawdzenia różnic. Podejście pierwsze polegało na zastosowaniu \verb|stream:stream| oraz operacji filter z użyciem wyrażenia lambda do wartościowania wyniku filtrowania.
+Podejście drugie to iteracja wektora za pomocą pętli po iteratorach, z tworzeniem nowej listy i dodawaniem do niej elementów spełniających kryteria.
+Podejście trzecie to analogiczna iteracja za pomocą iteratora, z tą różnicą, że tym razem elementy nie spełniające kryterium były usuwane z wektora za pomocą funkcji \verb|vector:erase|.
+Podejście czwarte to iteracja za pomocą pętli wykorzystującej zmienną całkowitą z dostępem do elementu vectora za pomocą funkcji \verb|vector:at|, wynikiem była nowo tworzona lista, podobnie jak w podejściu pierwszym.
+W powyższych trzech metodach wartościowanie kryterium było wykonywane za pomocą zwykłej instrukcji warunkowej bez użycia wyrażenia lamda.
+Metody rozwiązania piąta, szósta i siódma, są analogicznymi odpowiednikami drugiej, trzeciej i czwartej. Różnicą jest fakt, iż wartościowanie kryterium zostało w nich wykonane przy użyciu wyrażenia lambda. Celem było sprawdzenie jak duży narzut czasowy nakłada dodatkowe opakowanie instrukcji w funkcję anonimową.
+W tabelach prezentujących wyniki, odniesienia do poszczególnych metod przedstawione, są za pomocą numerów w kolejności opisu.
+Każdy z testów powtórzono tysiąckrotnie, przedstawione wyniki są wartością średnią. Wszystkie wartości określone są w milisekundach.
+\paragraph{}
+Pierwszy test polegał na ograniczeniu kolekcji tylko do elementów parzystych. Zastosowana była więc tylko jedna operacja filtrowania. Wyniki przedstawione są w tabeli \ref{tab1}.
+\begin{table}[t]
+	\caption{Pojedyncze filtrowanie, 10 000 elementów}
+	\label{tab1}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+	\hline 
+	1 & 2 & 3 & 4 & 5 & 6 & 7\\
+	\hline
+	3.66 & 0.07 & 29.11 & 0.04 & 0.68 & 30.99 & 0.72\\
+	\hline
+\end{tabular} 
+\end{table}
 
+\begin{table}[t]
+	\caption{Pojedyncze filtrowanie, 1 000 000 elementów}
+	\label{tab1}
+	\begin{tabular}{|l|l|l|l|l|l|l|}
+		\hline 
+		1 & 2 & 3 & 4 & 5 & 6 & 7\\
+		\hline
+		3.66 & 0.07 & 29.11 & 0.04 & 0.68 & 30.99 & 0.72\\
+		\hline
+	\end{tabular} 
+\end{table}
+
+\section{Testy przygotowanego API w porównaniu z innymi gotowymi rozwiązaniami}
+\section{Ocena ergonomi przygotowanego rozwiązania}
+\begin{thebibliography}{9}
+	
+	\bibitem{timer}
+	Nikos Athanasiou,
+	http://stackoverflow.com/questions/2808398/easily-measure-elapsed-time
+
+	
+\end{thebibliography}
 \end{document}
