@@ -2,8 +2,8 @@
 #include <ctime>
 #include <chrono>
 
-#define TEST_SIZE 1000000
-
+#define TEST_SIZE 10000
+#define EXECUTIONS 100.0
 template<typename TimeT = std::chrono::milliseconds>
 struct measure {
     template<typename F, typename ...Args>
@@ -175,7 +175,7 @@ void singleFunctionTest(const std::vector<int> *baseVector) {
     long long int _6 = 0;
     long long int _7 = 0;
     std::cout << "Single execution test" << std::endl;
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < EXECUTIONS; i++) {
         std::vector<int> *newListVector = new std::vector<int>(*baseVector);
         std::vector<int> *forIVector = new std::vector<int>(*baseVector);
         std::vector<int> *removalListVector = new std::vector<int>(*baseVector);
@@ -201,13 +201,13 @@ void singleFunctionTest(const std::vector<int> *baseVector) {
         delete (removalListVectorLambda);
         delete (streamCase);
     }
-    std::cout << _1 / 100.0 << std::endl;
-    std::cout << _2 / 100.0 << std::endl;
-    std::cout << _3 / 100.0 << std::endl;
-    std::cout << _4 / 100.0 << std::endl;
-    std::cout << _5 / 100.0 << std::endl;
-    std::cout << _6 / 100.0 << std::endl;
-    std::cout << _7 / 100.0 << std::endl;
+    std::cout << _1 / EXECUTIONS << std::endl;
+    std::cout << _2 / EXECUTIONS << std::endl;
+    std::cout << _3 / EXECUTIONS << std::endl;
+    std::cout << _4 / EXECUTIONS << std::endl;
+    std::cout << _5 / EXECUTIONS << std::endl;
+    std::cout << _6 / EXECUTIONS << std::endl;
+    std::cout << _7 / EXECUTIONS << std::endl;
 
 
 }
