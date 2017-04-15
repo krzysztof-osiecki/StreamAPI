@@ -12,6 +12,24 @@
 \usepackage{hyperref}
 \usepackage{tabularx} 
 \usepackage{amsthm}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\lstdefinelanguage{JavaScript}{
+	keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]',
+	morestring=[b]",
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	sensitive=true
+}
 
 \lstset
 { %Formatting for code in appendix
@@ -53,6 +71,41 @@ Domknięcie – w metodach realizacji języków programowania jest to obiekt wi�
 \end{theo}
 Domknięcie stanowi więc pojęcie szersze, którym można określić wszystkie implementacje pozwalające na użycie funkcji w kontekście obiektu, w paradygmacie programowania obiektowego.
 \section{Realizacja paradygmatu w języku JavaScript}
+\paragraph{}
+Javascript jest językiem, wieloparadygmatowym. Jednak można powiedzieć, że najistotniejsze ze składających się na sukces tego języka cech to jego \verb|zdarzeniowość| (z angielskiego \verb|event-drivent|), oraz funkcyjność. O sile javacriptu stanowi właśnie łatwość definiowania zachowań obiektów poprzez określenie funkcji mającej wykonać się w przypadku wystąpienia konkretnego zdarzenia. Obiekty opakowujące funkcje, czyli \verb|domknięcia|, dokonują \verb|przechwycenia| (z angielskiego \verb|capture|), zmiennych przez referencję. Oznacza to, że mają do nich pełen dostęp i możliwość ich modyfikacji. Koncepcja ta choć niezwykle praktyczna, może jednak powodować niekiedy problemy, kiedy jakaś nieznana deweloperowi funkcja zaczyna modyfikować jego obiekty. Specyfika wykorzystania języka powoduje czasami nieporozumienia w kontekście referencji do aktualnego obiektu, \verb|this|. Każda z funkcji definiowanych w ten sposób definiuje swój własny obiekt \verb|this|. W przypadku konstruktorów będzie to nowo utworzony obiekt. W trybie \verb|strict|; mniej łaskawym dla niejasnych instrukcji, blokującym niekture konstrukcje, traktującym część \verb|cichych| błędów, jako błędy diałnia); \verb|undefined|, czyli brak obiektu. Zaś w przypadku wykonania funkcji, jako metody konkretnego obiektu, będzie to tak zwany \verb|context object|. Tego typu zachowania, często prowadzą do błędow w rozumieniu i poprawnym pisaniu kodu. Deweloper spodziewa się, \verb|this|, będze obiektem okalającym, co nie będzie prawdą. Tego typu zachowanie, jest jednak omijane poprzez przypisanie potrzebnej wartości \verb|this| do obiektu, który będzie \verb|przechwycony| przez domknięcie.
+\paragraph{}
+Na listingu \ref{lst:js}, zobrazowany jest przykład definiowania funkcji w języku javascript. Jak widać definicja funkcji rozpoczyna się od słowa kluczowego \verb|function|, po którym następuje opcjonalna nazwa (w przypadku funkcji wewnętrznej pominięta). Dalej w nawiasach okrągłych znajduje się lista parametrów funkcji, zaś na końcu ograniczony przez nawiasy klamrowe blok działania funkcji. Jak pokazuje przykład, możliwa jest praktcznie całkowita dowolność w traktowaniu funkcji jako obiektu. W linii siódmej, do obiektu \verb|domknięcie| przypisany zostaje wynik funkcji \verb|licznik|, czyli w tym przypadku funkcja anonimowa zdefiniowana, której definicja rozpoczyna się w linii trzeciej. W tym też miejscu utworzona zostaje zmienna lokalna \verb|liczba| funkcji \verb|licznik|, a jej referencja przekazana jest do anonimowej funkcji, która przypisana jest do zmiennej \verb|domknięcie|. Dlatego też kolejne wywołania tej funkcji, powodują zwiększanie licznika i wypisywanie w wyniku liczby o jeden większej od poprzedniej. W linii dziesiątej zastosowano inne rozwiązanie. Do zmiennej \verb|obiektLicznika| przypisano funcję licznik, zamiast wyniku jej wykonania. Dwukrotne wywołanie funkcji określających ten obiekt powoduje kolejno, wywołanie funkcji \verb|licznik|, czyli zwrócenie funkcji anonimowej, oraz jej wywołanie. W tym przypadku \verb|licznik| wywołuje się za każdym razem na nowo, co za tym idzie, zmienna \verb|liczba|, także tworzona jest na nowo, czyli wynikiem kolejnych instrukcji będzie, za każdym razem 1.
+\begin{lstlisting}[caption={Funkcyjność w języku javascript},label={lst:js},language=Javascript]
+function licznik() {
+	var liczba = 0;
+	return function() {
+		return ++liczba;
+	};
+}
+var domkniecie = licznik();
+console.log(domkniecie()); //wypisze 1 w konsoli, o ile srodowisko udostepnia obiekt console
+console.log(domkniecie()); //wypisze 2 w konsoli, o ile srodowisko udostepnia obiekt console
+var obiektLicznika = licznik;
+console.log(obiektLicznika()()); //wypisze 1 w konsoli, o ile srodowisko udostepnia obiekt console
+console.log(obiektLicznika()()); //wypisze 1 w konsoli, o ile srodowisko udostepnia obiekt console
+\end{lstlisting}
+\paragraph{}
+Javascript stanowi implementacje standardu skryptowych języków ECMAScript. Standard ten dopiero w swojej szóstej wersji, zamkniętej w czerwcu 2015 roku wprowadził konstrukcje, które można określić jako odpowiedniki wyrażeń lambda. Użycie tego standardu może jednak bywać problematyczne, ze względu na niespójną implementację pomiędzy przeglądarkami, które stanowią główne środowisko uruchomieniowe javascriptu. 
+Funkcje strzałkowe (\verb|arrow functions|), są javascriptową wersją wyrażeń lambda. Ich składnia przedstawiona jest na listingu \ref{lst:jsarrow}.
+\begin{lstlisting}[caption={Funkcje strzałkowe \cite{lambdajssyntax}},label={lst:jsarrow},language=Javascript]
+(param1, param2, ..., paramN) => { statements }
+(param1, param2, ..., paramN) => expression
+// rownowazne z: (param1, param2, ..., paramN) => { return expression; }
+
+// Nawiasy sa opcjonalne w przypadku pojedynczego parametru
+(singleParam) => { statements }
+singleParam => { statements }
+
+// Przy braku parametrow nawiasy sa wymagane
+() => { statements }
+() => expression // rownowazne z: () => { return expression; }
+\end{lstlisting}
+Tego typu funkcje, rozwiazują problem niejasnego zachowania, referencji \verb|this|. Ponieważ nie definują własnego kontekstu, w ich wnętrzu odwołanie \verb|this|, zawsze określa obiekt, okalający funkcję w miejscu tworzenia. Zapewniają one także, bardziej skompresowaną konstrukcję. Są one doskonałym rozwiązaniem do funkcyjnych operacji na kolekcjach, takich jak filtrowanie czy mapowanie. Jedyną ich wadę stanowi fakt, niespójności implementacji JavaScriptu, przez różne przeglądarki. Dla przykładu Internet Explorer, nie wspiera tej konstrukcji. Do tego ze względu na różny stopień pokrycia specyfikacji ES6 przez przeglądarki, używanie tego standardu jest często niemile widziane, w produkcyjnych rozwiązaniach.
 \section{Realizacja paradygmatu w języku C\#}
 \section{Realizacja paradygmatu w języku Java}
 \section{Realizacja paradygmatu w języku C++}
@@ -183,7 +236,7 @@ Pierwszy test polegał na ograniczeniu kolekcji tylko do elementów parzystych. 
 
 \begin{table}[t]
 	\caption{Pojedyncze filtrowanie, 1 000 000 elementów}
-	\label{tab1}
+	\label{tab2}
 	\begin{tabular}{|l|l|l|l|l|l|l|}
 		\hline 
 		1 & 2 & 3 & 4 & 5 & 6 & 7\\
@@ -200,6 +253,10 @@ Pierwszy test polegał na ograniczeniu kolekcji tylko do elementów parzystych. 
 	\bibitem{timer}
 	Nikos Athanasiou,
 	http://stackoverflow.com/questions/2808398/easily-measure-elapsed-time
+	
+	\bibitem{lambdajssyntax}
+	MDN,
+	https://developer.mozilla.org/pl/docs/Web/JavaScript/Reference/Functions/Arrow\_functions
 
 	
 \end{thebibliography}

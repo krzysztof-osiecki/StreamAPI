@@ -6,31 +6,34 @@
 \contentsline {section}{\numberline {1.4}Dlaczego paradygmat funkcyjny?}{4}{section.1.4}
 \contentsline {section}{\numberline {1.5}Domkni\IeC {\k e}cia i wyra\IeC {\.z}enia lambda jako spos\IeC {\'o}b realizacji paradygmatu}{5}{section.1.5}
 \contentsline {section}{\numberline {1.6}Realizacja paradygmatu w j\IeC {\k e}zyku JavaScript}{5}{section.1.6}
-\contentsline {section}{\numberline {1.7}Realizacja paradygmatu w j\IeC {\k e}zyku C\#}{5}{section.1.7}
-\contentsline {section}{\numberline {1.8}Realizacja paradygmatu w j\IeC {\k e}zyku Java}{5}{section.1.8}
-\contentsline {section}{\numberline {1.9}Realizacja paradygmatu w j\IeC {\k e}zyku C++}{5}{section.1.9}
-\contentsline {section}{\numberline {1.10}Kolekcje jako strumienie danych}{5}{section.1.10}
-\contentsline {chapter}{\numberline {2}Zalety programowania funkcyjnego w rozwi\IeC {\k a}zaniach praktycznych}{6}{chapter.2}
-\contentsline {section}{\numberline {2.1}Podstawowe problemy i zadania w programowaniu aplikacji biznesowych}{6}{section.2.1}
-\contentsline {section}{\numberline {2.2}Por\IeC {\'o}wnanie r\IeC {\'o}\IeC {\.z}nic podej\IeC {\'s}cia funcyjnego i imperatywnego w rozwi\IeC {\k a}zywaniu problem\IeC {\'o}w}{7}{section.2.2}
-\contentsline {paragraph}{}{8}{section*.3}
-\contentsline {paragraph}{}{8}{section*.4}
-\contentsline {paragraph}{}{9}{section*.5}
-\contentsline {section}{\numberline {2.3}Analiza przyk\IeC {\l }adowych rozwi\IeC {\k a}za\IeC {\'n} w przypadku r\IeC {\'o}\IeC {\.z}nych paradygmat\IeC {\'o}w}{9}{section.2.3}
-\contentsline {paragraph}{}{9}{section*.6}
+\contentsline {paragraph}{}{5}{section*.3}
+\contentsline {paragraph}{}{5}{section*.4}
+\contentsline {paragraph}{}{6}{section*.5}
+\contentsline {section}{\numberline {1.7}Realizacja paradygmatu w j\IeC {\k e}zyku C\#}{7}{section.1.7}
+\contentsline {section}{\numberline {1.8}Realizacja paradygmatu w j\IeC {\k e}zyku Java}{7}{section.1.8}
+\contentsline {section}{\numberline {1.9}Realizacja paradygmatu w j\IeC {\k e}zyku C++}{7}{section.1.9}
+\contentsline {section}{\numberline {1.10}Kolekcje jako strumienie danych}{7}{section.1.10}
+\contentsline {chapter}{\numberline {2}Zalety programowania funkcyjnego w rozwi\IeC {\k a}zaniach praktycznych}{8}{chapter.2}
+\contentsline {section}{\numberline {2.1}Podstawowe problemy i zadania w programowaniu aplikacji biznesowych}{8}{section.2.1}
+\contentsline {section}{\numberline {2.2}Por\IeC {\'o}wnanie r\IeC {\'o}\IeC {\.z}nic podej\IeC {\'s}cia funcyjnego i imperatywnego w rozwi\IeC {\k a}zywaniu problem\IeC {\'o}w}{9}{section.2.2}
+\contentsline {paragraph}{}{10}{section*.6}
 \contentsline {paragraph}{}{10}{section*.7}
-\contentsline {paragraph}{}{10}{section*.8}
-\contentsline {chapter}{\numberline {3}Analiza wydajno\IeC {\'s}ci istniej\IeC {\k a}cych rozwi\IeC {\k a}za\IeC {\'n} funkcyjnych}{11}{chapter.3}
-\contentsline {section}{\numberline {3.1}Prezentacja zakresu test\IeC {\'o}w i opis \IeC {\'s}rodowiska}{11}{section.3.1}
-\contentsline {section}{\numberline {3.2}Kryteria wyboru rozwi\IeC {\k a}za\IeC {\'n} wraz z przedstawieniem wybranych}{11}{section.3.2}
-\contentsline {section}{\numberline {3.3}Przedstawienie i analiza wynik\IeC {\'o}w}{11}{section.3.3}
-\contentsline {chapter}{\numberline {4}Prezentacja opracowanego rozwi\IeC {\k a}zania}{12}{chapter.4}
-\contentsline {section}{\numberline {4.1}Kod \IeC {\'z}r\IeC {\'o}d\IeC {\l }owy}{12}{section.4.1}
-\contentsline {paragraph}{}{15}{section*.9}
-\contentsline {section}{\numberline {4.2}Opis zakresu mo\IeC {\.z}liwo\IeC {\'s}ci przygotowanego rozwi\IeC {\k a}zania}{15}{section.4.2}
-\contentsline {section}{\numberline {4.3}Por\IeC {\'o}wnanie przygotowanego API z istniej\IeC {\k a}cymi w innych j\IeC {\k e}zykach}{15}{section.4.3}
-\contentsline {section}{\numberline {4.4}Testy weryfikuj\IeC {\k a}ce wydajno\IeC {\'s}\IeC {\'c} rozwi\IeC {\k a}zania wzgl\IeC {\k e}dem natywnego j\IeC {\k e}zyka C++}{15}{section.4.4}
-\contentsline {paragraph}{}{16}{section*.10}
-\contentsline {paragraph}{}{16}{section*.11}
-\contentsline {section}{\numberline {4.5}Testy przygotowanego API w por\IeC {\'o}wnaniu z innymi gotowymi rozwi\IeC {\k a}zaniami}{17}{section.4.5}
-\contentsline {section}{\numberline {4.6}Ocena ergonomi przygotowanego rozwi\IeC {\k a}zania}{17}{section.4.6}
+\contentsline {paragraph}{}{11}{section*.8}
+\contentsline {section}{\numberline {2.3}Analiza przyk\IeC {\l }adowych rozwi\IeC {\k a}za\IeC {\'n} w przypadku r\IeC {\'o}\IeC {\.z}nych paradygmat\IeC {\'o}w}{11}{section.2.3}
+\contentsline {paragraph}{}{11}{section*.9}
+\contentsline {paragraph}{}{12}{section*.10}
+\contentsline {paragraph}{}{12}{section*.11}
+\contentsline {chapter}{\numberline {3}Analiza wydajno\IeC {\'s}ci istniej\IeC {\k a}cych rozwi\IeC {\k a}za\IeC {\'n} funkcyjnych}{13}{chapter.3}
+\contentsline {section}{\numberline {3.1}Prezentacja zakresu test\IeC {\'o}w i opis \IeC {\'s}rodowiska}{13}{section.3.1}
+\contentsline {section}{\numberline {3.2}Kryteria wyboru rozwi\IeC {\k a}za\IeC {\'n} wraz z przedstawieniem wybranych}{13}{section.3.2}
+\contentsline {section}{\numberline {3.3}Przedstawienie i analiza wynik\IeC {\'o}w}{13}{section.3.3}
+\contentsline {chapter}{\numberline {4}Prezentacja opracowanego rozwi\IeC {\k a}zania}{14}{chapter.4}
+\contentsline {section}{\numberline {4.1}Kod \IeC {\'z}r\IeC {\'o}d\IeC {\l }owy}{14}{section.4.1}
+\contentsline {paragraph}{}{17}{section*.12}
+\contentsline {section}{\numberline {4.2}Opis zakresu mo\IeC {\.z}liwo\IeC {\'s}ci przygotowanego rozwi\IeC {\k a}zania}{17}{section.4.2}
+\contentsline {section}{\numberline {4.3}Por\IeC {\'o}wnanie przygotowanego API z istniej\IeC {\k a}cymi w innych j\IeC {\k e}zykach}{17}{section.4.3}
+\contentsline {section}{\numberline {4.4}Testy weryfikuj\IeC {\k a}ce wydajno\IeC {\'s}\IeC {\'c} rozwi\IeC {\k a}zania wzgl\IeC {\k e}dem natywnego j\IeC {\k e}zyka C++}{17}{section.4.4}
+\contentsline {paragraph}{}{18}{section*.13}
+\contentsline {paragraph}{}{18}{section*.14}
+\contentsline {section}{\numberline {4.5}Testy przygotowanego API w por\IeC {\'o}wnaniu z innymi gotowymi rozwi\IeC {\k a}zaniami}{19}{section.4.5}
+\contentsline {section}{\numberline {4.6}Ocena ergonomi przygotowanego rozwi\IeC {\k a}zania}{19}{section.4.6}
