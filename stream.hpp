@@ -33,6 +33,10 @@ namespace stream {
 
         stream<T> *filter(std::function<bool(T)> predicate);
 
+        void foreach(std::function<void(T)> mappingFunction);
+
+        T reduce(std::function<T(T, T)> reductorFunction);
+
         std::vector<T> *toVector();
 
         template<class R>
@@ -52,7 +56,6 @@ namespace stream {
         std::vector<streamOperation<bool(T)> *> *predicates;
         std::vector<T> *underlyingVector;
         bool consumed;
-
     };
 
     template<class T, class... Args>
@@ -118,7 +121,7 @@ namespace stream {
         std::vector<T> *filtered = toVector();
         std::vector<R> *result = new std::vector<R>();
         for (typename std::vector<T>::iterator it = filtered->begin();
-             it != underlyingVector->end();) {
+             it != filtered->end();) {
             T v = (*it);
             auto val = this->executeMappingOperation(op, v);
             result->push_back(val);
@@ -127,6 +130,29 @@ namespace stream {
         return new stream<R>(*result);
     }
 
+    template<class T>
+    T stream<T>::reduce(std::function<T(T, T)> reductorFunction) {
+        streamOperation<T(T, T)> *op = new streamOperation<T(T, T)>(&reductorFunction);
+        std::vector<T> *filtered = toVector();
+        auto previousVal = filtered->front();
+        for (typename std::vector<T>::iterator it = filtered->begin() + 1;
+             it != filtered->end();) {
+            previousVal = reductorFunction(previousVal, (*it));
+            ++it;
+        }
+        return previousVal;
+    }
+
+    template<class T>
+    void stream<T>::foreach(std::function<void(T)> foreachOperation) {
+        std::vector<T> *filtered = toVector();
+        for (typename std::vector<T>::iterator it = filtered->begin();
+             it != filtered->end();) {
+            T v = (*it);
+            foreachOperation(v);
+            ++it;
+        }
+    }
 
     template<class T>
     std::vector<T> *stream<T>::toVector() {
