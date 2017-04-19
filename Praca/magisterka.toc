@@ -51,11 +51,11 @@
 \contentsline {paragraph}{}{21}{section*.36}
 \contentsline {chapter}{\numberline {4}Prezentacja opracowanego rozwi\IeC {\k a}zania}{23}{chapter.4}
 \contentsline {section}{\numberline {4.1}Kod \IeC {\'z}r\IeC {\'o}d\IeC {\l }owy}{23}{section.4.1}
-\contentsline {paragraph}{}{27}{section*.37}
-\contentsline {section}{\numberline {4.2}Opis zakresu mo\IeC {\.z}liwo\IeC {\'s}ci przygotowanego rozwi\IeC {\k a}zania}{27}{section.4.2}
-\contentsline {section}{\numberline {4.3}Por\IeC {\'o}wnanie przygotowanego API z istniej\IeC {\k a}cymi w innych j\IeC {\k e}zykach}{27}{section.4.3}
-\contentsline {section}{\numberline {4.4}Testy weryfikuj\IeC {\k a}ce wydajno\IeC {\'s}\IeC {\'c} rozwi\IeC {\k a}zania wzgl\IeC {\k e}dem natywnego j\IeC {\k e}zyka C++}{27}{section.4.4}
-\contentsline {paragraph}{}{27}{section*.38}
-\contentsline {paragraph}{}{28}{section*.39}
-\contentsline {section}{\numberline {4.5}Testy przygotowanego API w por\IeC {\'o}wnaniu z innymi gotowymi rozwi\IeC {\k a}zaniami}{28}{section.4.5}
-\contentsline {section}{\numberline {4.6}Ocena ergonomii przygotowanego rozwi\IeC {\k a}zania}{28}{section.4.6}
+\contentsline {paragraph}{}{28}{section*.37}
+\contentsline {section}{\numberline {4.2}Opis zakresu mo\IeC {\.z}liwo\IeC {\'s}ci przygotowanego rozwi\IeC {\k a}zania}{28}{section.4.2}
+\contentsline {section}{\numberline {4.3}Por\IeC {\'o}wnanie przygotowanego API z istniej\IeC {\k a}cymi w innych j\IeC {\k e}zykach}{29}{section.4.3}
+\contentsline {section}{\numberline {4.4}Testy weryfikuj\IeC {\k a}ce wydajno\IeC {\'s}\IeC {\'c} rozwi\IeC {\k a}zania wzgl\IeC {\k e}dem natywnego j\IeC {\k e}zyka C++}{29}{section.4.4}
+\contentsline {paragraph}{}{29}{section*.38}
+\contentsline {paragraph}{}{30}{section*.39}
+\contentsline {section}{\numberline {4.5}Testy przygotowanego API w por\IeC {\'o}wnaniu z innymi gotowymi rozwi\IeC {\k a}zaniami}{30}{section.4.5}
+\contentsline {section}{\numberline {4.6}Ocena ergonomii przygotowanego rozwi\IeC {\k a}zania}{30}{section.4.6}
