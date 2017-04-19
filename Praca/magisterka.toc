@@ -1,59 +1,61 @@
 \select@language {polish}
 \contentsline {chapter}{\numberline {1}Om\IeC {\'o}wienie funkcyjnego paradygmatu programowania}{3}{chapter.1}
 \contentsline {section}{\numberline {1.1}Czym jest paradygmat programowania}{3}{section.1.1}
-\contentsline {section}{\numberline {1.2}Cechy paradygmatu funkcyjnego}{3}{section.1.2}
-\contentsline {section}{\numberline {1.3}Efekty uboczne, w programowaniu funkcyjnym}{4}{section.1.3}
-\contentsline {section}{\numberline {1.4}Dlaczego paradygmat funkcyjny?}{4}{section.1.4}
-\contentsline {section}{\numberline {1.5}Domkni\IeC {\k e}cia i wyra\IeC {\.z}enia lambda jako spos\IeC {\'o}b realizacji paradygmatu}{5}{section.1.5}
-\contentsline {section}{\numberline {1.6}Kolekcje jako strumienie danych}{5}{section.1.6}
-\contentsline {section}{\numberline {1.7}Realizacja paradygmatu w j\IeC {\k e}zyku JavaScript}{5}{section.1.7}
-\contentsline {paragraph}{}{5}{section*.3}
-\contentsline {paragraph}{}{6}{section*.4}
-\contentsline {paragraph}{}{7}{section*.5}
-\contentsline {paragraph}{}{7}{section*.6}
-\contentsline {section}{\numberline {1.8}Opis podstawowych operacji funkcyjnych}{8}{section.1.8}
-\contentsline {paragraph}{}{8}{section*.7}
-\contentsline {paragraph}{}{8}{section*.8}
-\contentsline {paragraph}{}{8}{section*.9}
-\contentsline {paragraph}{}{8}{section*.10}
-\contentsline {paragraph}{}{8}{section*.11}
-\contentsline {paragraph}{}{8}{section*.12}
-\contentsline {section}{\numberline {1.9}Realizacja paradygmatu w j\IeC {\k e}zyku C\#}{9}{section.1.9}
-\contentsline {paragraph}{}{9}{section*.13}
-\contentsline {paragraph}{}{9}{section*.14}
-\contentsline {paragraph}{}{9}{section*.15}
-\contentsline {paragraph}{}{9}{section*.16}
-\contentsline {paragraph}{}{10}{section*.17}
-\contentsline {paragraph}{}{10}{section*.18}
-\contentsline {section}{\numberline {1.10}Realizacja paradygmatu w j\IeC {\k e}zyku Java}{10}{section.1.10}
-\contentsline {paragraph}{}{10}{section*.19}
-\contentsline {paragraph}{}{11}{section*.20}
-\contentsline {paragraph}{}{11}{section*.21}
-\contentsline {paragraph}{}{12}{section*.22}
-\contentsline {paragraph}{}{12}{section*.23}
-\contentsline {paragraph}{}{13}{section*.24}
-\contentsline {section}{\numberline {1.11}Realizacja paradygmatu w j\IeC {\k e}zyku C++}{13}{section.1.11}
-\contentsline {chapter}{\numberline {2}Zalety programowania funkcyjnego w rozwi\IeC {\k a}zaniach praktycznych}{14}{chapter.2}
-\contentsline {section}{\numberline {2.1}Podstawowe problemy i zadania w programowaniu aplikacji biznesowych}{14}{section.2.1}
-\contentsline {section}{\numberline {2.2}Por\IeC {\'o}wnanie r\IeC {\'o}\IeC {\.z}nic podej\IeC {\'s}cia funcyjnego i imperatywnego w rozwi\IeC {\k a}zywaniu problem\IeC {\'o}w}{15}{section.2.2}
+\contentsline {paragraph}{}{3}{section*.3}
+\contentsline {paragraph}{}{4}{section*.4}
+\contentsline {section}{\numberline {1.2}Cechy paradygmatu funkcyjnego}{4}{section.1.2}
+\contentsline {section}{\numberline {1.3}Dlaczego paradygmat funkcyjny?}{4}{section.1.3}
+\contentsline {section}{\numberline {1.4}Domkni\IeC {\k e}cia i wyra\IeC {\.z}enia lambda jako spos\IeC {\'o}b realizacji paradygmatu}{5}{section.1.4}
+\contentsline {section}{\numberline {1.5}Kolekcje jako strumienie danych}{5}{section.1.5}
+\contentsline {chapter}{\numberline {2}Zalety programowania funkcyjnego w rozwi\IeC {\k a}zaniach praktycznych}{7}{chapter.2}
+\contentsline {section}{\numberline {2.1}Podstawowe problemy i zadania w programowaniu aplikacji biznesowych}{7}{section.2.1}
+\contentsline {section}{\numberline {2.2}Por\IeC {\'o}wnanie r\IeC {\'o}\IeC {\.z}nic podej\IeC {\'s}cia funkcyjnego i imperatywnego w rozwi\IeC {\k a}zywaniu problem\IeC {\'o}w}{8}{section.2.2}
+\contentsline {paragraph}{}{9}{section*.5}
+\contentsline {paragraph}{}{9}{section*.6}
+\contentsline {paragraph}{}{10}{section*.7}
+\contentsline {section}{\numberline {2.3}Analiza przyk\IeC {\l }adowych rozwi\IeC {\k a}za\IeC {\'n} w przypadku r\IeC {\'o}\IeC {\.z}nych paradygmat\IeC {\'o}w}{10}{section.2.3}
+\contentsline {paragraph}{}{10}{section*.8}
+\contentsline {paragraph}{}{11}{section*.9}
+\contentsline {paragraph}{}{11}{section*.10}
+\contentsline {chapter}{\numberline {3}Realizacje w r\IeC {\'o}\IeC {\.z}nych j\IeC {\k e}zykach}{12}{chapter.3}
+\contentsline {section}{\numberline {3.1}Realizacja paradygmatu w j\IeC {\k e}zyku JavaScript}{12}{section.3.1}
+\contentsline {paragraph}{}{12}{section*.11}
+\contentsline {paragraph}{}{12}{section*.12}
+\contentsline {paragraph}{}{13}{section*.13}
+\contentsline {paragraph}{}{14}{section*.14}
+\contentsline {section}{\numberline {3.2}Opis podstawowych operacji funkcyjnych}{14}{section.3.2}
+\contentsline {paragraph}{}{14}{section*.15}
+\contentsline {paragraph}{}{14}{section*.16}
+\contentsline {paragraph}{}{14}{section*.17}
+\contentsline {paragraph}{}{14}{section*.18}
+\contentsline {paragraph}{}{15}{section*.19}
+\contentsline {paragraph}{}{15}{section*.20}
+\contentsline {section}{\numberline {3.3}Realizacja paradygmatu w j\IeC {\k e}zyku C\#}{15}{section.3.3}
+\contentsline {paragraph}{}{15}{section*.21}
+\contentsline {paragraph}{}{15}{section*.22}
+\contentsline {paragraph}{}{16}{section*.23}
+\contentsline {paragraph}{}{16}{section*.24}
 \contentsline {paragraph}{}{16}{section*.25}
 \contentsline {paragraph}{}{16}{section*.26}
+\contentsline {section}{\numberline {3.4}Realizacja paradygmatu w j\IeC {\k e}zyku Java}{17}{section.3.4}
 \contentsline {paragraph}{}{17}{section*.27}
-\contentsline {section}{\numberline {2.3}Analiza przyk\IeC {\l }adowych rozwi\IeC {\k a}za\IeC {\'n} w przypadku r\IeC {\'o}\IeC {\.z}nych paradygmat\IeC {\'o}w}{17}{section.2.3}
 \contentsline {paragraph}{}{17}{section*.28}
 \contentsline {paragraph}{}{18}{section*.29}
 \contentsline {paragraph}{}{18}{section*.30}
-\contentsline {chapter}{\numberline {3}Analiza wydajno\IeC {\'s}ci istniej\IeC {\k a}cych rozwi\IeC {\k a}za\IeC {\'n} funkcyjnych}{19}{chapter.3}
-\contentsline {section}{\numberline {3.1}Prezentacja zakresu test\IeC {\'o}w i opis \IeC {\'s}rodowiska}{19}{section.3.1}
-\contentsline {section}{\numberline {3.2}Kryteria wyboru rozwi\IeC {\k a}za\IeC {\'n} wraz z przedstawieniem wybranych}{19}{section.3.2}
-\contentsline {section}{\numberline {3.3}Przedstawienie i analiza wynik\IeC {\'o}w}{19}{section.3.3}
-\contentsline {chapter}{\numberline {4}Prezentacja opracowanego rozwi\IeC {\k a}zania}{20}{chapter.4}
-\contentsline {section}{\numberline {4.1}Kod \IeC {\'z}r\IeC {\'o}d\IeC {\l }owy}{20}{section.4.1}
-\contentsline {paragraph}{}{24}{section*.31}
-\contentsline {section}{\numberline {4.2}Opis zakresu mo\IeC {\.z}liwo\IeC {\'s}ci przygotowanego rozwi\IeC {\k a}zania}{24}{section.4.2}
-\contentsline {section}{\numberline {4.3}Por\IeC {\'o}wnanie przygotowanego API z istniej\IeC {\k a}cymi w innych j\IeC {\k e}zykach}{24}{section.4.3}
-\contentsline {section}{\numberline {4.4}Testy weryfikuj\IeC {\k a}ce wydajno\IeC {\'s}\IeC {\'c} rozwi\IeC {\k a}zania wzgl\IeC {\k e}dem natywnego j\IeC {\k e}zyka C++}{24}{section.4.4}
-\contentsline {paragraph}{}{24}{section*.32}
-\contentsline {paragraph}{}{25}{section*.33}
-\contentsline {section}{\numberline {4.5}Testy przygotowanego API w por\IeC {\'o}wnaniu z innymi gotowymi rozwi\IeC {\k a}zaniami}{25}{section.4.5}
-\contentsline {section}{\numberline {4.6}Ocena ergonomi przygotowanego rozwi\IeC {\k a}zania}{25}{section.4.6}
+\contentsline {paragraph}{}{19}{section*.31}
+\contentsline {paragraph}{}{19}{section*.32}
+\contentsline {section}{\numberline {3.5}Realizacja paradygmatu w j\IeC {\k e}zyku C++}{19}{section.3.5}
+\contentsline {paragraph}{}{19}{section*.33}
+\contentsline {paragraph}{}{20}{section*.34}
+\contentsline {paragraph}{}{20}{section*.35}
+\contentsline {paragraph}{}{21}{section*.36}
+\contentsline {chapter}{\numberline {4}Prezentacja opracowanego rozwi\IeC {\k a}zania}{23}{chapter.4}
+\contentsline {section}{\numberline {4.1}Kod \IeC {\'z}r\IeC {\'o}d\IeC {\l }owy}{23}{section.4.1}
+\contentsline {paragraph}{}{27}{section*.37}
+\contentsline {section}{\numberline {4.2}Opis zakresu mo\IeC {\.z}liwo\IeC {\'s}ci przygotowanego rozwi\IeC {\k a}zania}{27}{section.4.2}
+\contentsline {section}{\numberline {4.3}Por\IeC {\'o}wnanie przygotowanego API z istniej\IeC {\k a}cymi w innych j\IeC {\k e}zykach}{27}{section.4.3}
+\contentsline {section}{\numberline {4.4}Testy weryfikuj\IeC {\k a}ce wydajno\IeC {\'s}\IeC {\'c} rozwi\IeC {\k a}zania wzgl\IeC {\k e}dem natywnego j\IeC {\k e}zyka C++}{27}{section.4.4}
+\contentsline {paragraph}{}{27}{section*.38}
+\contentsline {paragraph}{}{28}{section*.39}
+\contentsline {section}{\numberline {4.5}Testy przygotowanego API w por\IeC {\'o}wnaniu z innymi gotowymi rozwi\IeC {\k a}zaniami}{28}{section.4.5}
+\contentsline {section}{\numberline {4.6}Ocena ergonomii przygotowanego rozwi\IeC {\k a}zania}{28}{section.4.6}

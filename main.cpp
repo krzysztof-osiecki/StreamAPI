@@ -4,6 +4,7 @@
 
 #define TEST_SIZE 10000
 #define EXECUTIONS 100.0
+
 template<typename TimeT = std::chrono::milliseconds>
 struct measure {
     template<typename F, typename ...Args>
@@ -135,7 +136,8 @@ int main() {
     for (int i = 0; i < TEST_SIZE; i++) {
         baseVector->push_back(i);
     }
-    singleFunctionTest(baseVector);
+//    singleFunctionTest(baseVector);
+    firstTest();
 
     return 0;
 }
@@ -221,16 +223,21 @@ void firstTest() {
     stream::stream<int> *testStream4 = new stream::stream<int>(v);
     stream::stream<int> *testStream5 = new stream::stream<int>(v);
     stream::stream<int> *testStream6 = new stream::stream<int>(v);
-    std::function<bool(int)> ff = [](int a) -> bool { return a > 0; };
-    std::function<bool(int)> ff3 = [](int a) -> bool { return a >= 3; };
-    std::function<double(int)> xa = [](int a) -> double { return a + 0.1; };
+    std::function<bool(int)> ff = [](int a) { return a > 0; };
+    std::function<bool(int)> ff3 = [](int a) { return a >= 3; };
+    std::function<double(int)> xa = [](int a) { return a + 0.1; };
+//    auto xa = [](int a) -> double { return a + 0.1; }; NIE DZIALA
+    auto a = ([v, &testStream](int a) { double costam = a + 0.1; testStream->peek(); v.at(0);
+        int sa = 9;if(sa != 9)
+        return costam; else return 1.9;});
+    std::cout << a(1) << "ASD" << std::endl;
     testStream
-            ->filter([](int a) -> bool { return a > 0; })
+            ->filter([](int a) { return a > 0; })
             ->filter(ff3)
             ->peek();
     testStream2
             ->filter(ff)
-            ->map((std::function<double(int)>) ([](int a) -> double { return a + 0.1; }))
+            ->map((std::function<double(int)>) ([](int a) { return a + 0.1; }))
             ->peek();
     testStream3
             ->filter(ff)
