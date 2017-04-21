@@ -5,6 +5,8 @@
 #include <vector>
 #include <queue>
 #include <functional>
+#include <forward_list>
+#include <list>
 
 namespace stream {
 
@@ -28,6 +30,42 @@ namespace stream {
          * @param data wektor ktory zostanie opakowany strumieniem
          */
         stream(const std::vector<T> &data);
+
+        /**
+         * Konstruktor tworzacy strumien z instancji std::deque
+         *
+         * @param data wektor ktory zostanie opakowany strumieniem
+         */
+        stream(const std::deque<T> &data);
+
+        /**
+         * Konstruktor tworzacy strumien z instancji std::forward_list
+         *
+         * @param data wektor ktory zostanie opakowany strumieniem
+         */
+        stream(const std::forward_list<T> &data);
+
+        /**
+         * Konstruktor tworzacy strumien z instancji std::list
+         *
+         * @param data wektor ktory zostanie opakowany strumieniem
+         */
+        stream(const std::list<T> &data);
+
+        /**
+         * Konstruktor tworzacy strumien z instancji std::vector, w odroznieniu
+         * od drugiego kostruktora ten nie tworzy kopii przyjetych danych i moze je modyfikowac
+         *
+         * @param data wektor ktory zostanie opakowany strumieniem
+        */
+        stream(std::vector<T> *data);
+
+        /**
+         * Konstruktor tworzacy strumien z instancji tablicy
+         *
+         * @param data wektor ktory zostanie opakowany strumieniem
+         */
+        stream(T data[], int length);
 
         /**
          * Operacja nakladajaca na strumien filtr okreslony zadana funkcja.
@@ -115,13 +153,41 @@ namespace stream {
          */
         std::vector<T> *toVector();
 
-    protected:
-        stream(const std::vector<T> &data, std::vector<streamOperation<bool(T)> *> *predicates);
+        /**
+         * Operacja powrotu ze strumienia do std::deque. Aplikowane sa wszsytkie
+         * operacje filter i zwracany nowy obiekt deque.
+         * Operacja terminalna
+         *
+         * @return std::deque zawierajacy elementy strumienia
+         */
+        std::deque<T> *toDeque();
 
-        template<class R>
-        R executeMappingOperation(streamOperation<R(T)> *operation, T value);
+        /**
+         * Operacja powrotu ze strumienia do std::forward_list. Aplikowane sa wszsytkie
+         * operacje filter i zwracany nowy obiekt forward_list.
+         * Operacja terminalna
+         *
+         * @return std::forward_list zawierajacy elementy strumienia
+         */
+        std::forward_list<T> *toForwardList();
+
+        /**
+         * Operacja powrotu ze strumienia do std::list. Aplikowane sa wszsytkie
+         * operacje filter i zwracany nowy obiekt listy.
+         * Operacja terminalna
+         *
+         * @return std::list zawierajacy elementy strumienia
+         */
+        std::list<T> *toList();
+
+        ~stream();
+
+    protected:
 
         void checkConsumed(bool consume);
+
+        template<class R>
+        std::vector<R> *toVector(std::function<R(T)> mappingFunction);
 
     private:
         std::vector<streamOperation<bool(T)> *> *predicates;
@@ -134,21 +200,53 @@ namespace stream {
     public:
         std::function<T(Args ...)> *fun;
 
+        ~streamOperation() {
+            delete (fun);
+        }
+
         streamOperation(std::function<T(Args ...)> *fun) {
             this->fun = fun;
         }
     };
 
     template<class T>
-    stream<T>::stream(const std::vector<T> &data, std::vector<streamOperation<bool(T)> *> *predicates) {
+    stream<T>::stream(const std::vector<T> &data) {
         this->underlyingVector = new std::vector<T>(data);
-        this->predicates = predicates;
+        this->predicates = new std::vector<streamOperation<bool(T)> *>();
         this->consumed = false;
     }
 
     template<class T>
-    stream<T>::stream(const std::vector<T> &data) {
-        this->underlyingVector = new std::vector<T>(data);
+    stream<T>::stream(std::vector<T> *data) {
+        this->underlyingVector = data;
+        this->predicates = new std::vector<streamOperation<bool(T)> *>();
+        this->consumed = false;
+    }
+
+    template<class T>
+    stream<T>::stream(const std::deque<T> &data) {
+        this->underlyingVector = new std::vector<T>(data.begin(), data.end());
+        this->predicates = new std::vector<streamOperation<bool(T)> *>();
+        this->consumed = false;
+    }
+
+    template<class T>
+    stream<T>::stream(const std::forward_list<T> &data) {
+        this->underlyingVector = new std::vector<T>(data.begin(), data.end());
+        this->predicates = new std::vector<streamOperation<bool(T)> *>();
+        this->consumed = false;
+    }
+
+    template<class T>
+    stream<T>::stream(const std::list<T> &data) {
+        this->underlyingVector = new std::vector<T>(data.begin(), data.end());
+        this->predicates = new std::vector<streamOperation<bool(T)> *>();
+        this->consumed = false;
+    }
+
+    template<class T>
+    stream<T>::stream(T data[], int length) {
+        this->underlyingVector = new std::vector<T>(data, data + length);
         this->predicates = new std::vector<streamOperation<bool(T)> *>();
         this->consumed = false;
     }
@@ -181,28 +279,15 @@ namespace stream {
     template<class T>
     template<class R>
     stream<R> *stream<T>::map(std::function<R(T)> mappingFunction) {
-        streamOperation<R(T)> *op = new streamOperation<R(T)>(&mappingFunction);
-        std::vector<T> *filtered = toVector();
-        std::vector<R> *result = new std::vector<R>();
-        for (typename std::vector<T>::iterator it = filtered->begin();
-             it != filtered->end();) {
-            T v = (*it);
-            auto val = this->executeMappingOperation(op, v);
-            result->push_back(val);
-            ++it;
-        }
-        return new stream<R>(*result);
+        return new stream<R>(toVector(mappingFunction));
     }
 
     template<class T>
     T stream<T>::reduce(std::function<T(T, T)> reductorFunction) {
-        streamOperation<T(T, T)> *op = new streamOperation<T(T, T)>(&reductorFunction);
         std::vector<T> *filtered = toVector();
         auto previousVal = filtered->front();
-        for (typename std::vector<T>::iterator it = filtered->begin() + 1;
-             it != filtered->end();) {
+        for (typename std::vector<T>::iterator it = filtered->begin() + 1; it != filtered->end(); ++it) {
             previousVal = reductorFunction(previousVal, (*it));
-            ++it;
         }
         return previousVal;
     }
@@ -213,7 +298,7 @@ namespace stream {
         for (typename std::vector<T>::iterator it = filtered->begin();
              it != filtered->end();) {
             T v = (*it);
-            foreachOperation(v);
+            exectutionFunction(v);
             ++it;
         }
     }
@@ -221,54 +306,134 @@ namespace stream {
     template<class T>
     std::vector<T> *stream<T>::toVector() {
         checkConsumed(true);
+        if (predicates->empty()) {
+            return new std::vector<T>(underlyingVector->begin(), underlyingVector->end());
+        }
         std::vector<T> *result = new std::vector<T>();
-
         for (auto it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
-            auto remove = false;
+            bool keep = true;
             T v = (*it);
             for (auto oIt = predicates->begin(); oIt != predicates->end(); ++oIt) {
-                auto val = (*(*oIt)->fun)(v);;
-                if (!val) {
-                    remove = true;
+                if (!(*(*oIt)->fun)(v)) {
+                    keep = false;
                     break;
                 }
             }
-            if (!remove) result->push_back(v);
+            if (keep)
+                result->push_back(v);
         }
         return result;
     }
 
     template<class T>
-    stream<T> *stream<T>::peek() {
+    template<class R>
+    std::vector<R> *stream<T>::toVector(std::function<R(T)> mappingFunction) {
+        checkConsumed(true);
+        std::vector<R> *result = new std::vector<R>();
         for (auto it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
-            auto remove = false;
+            bool keep = true;
             T v = (*it);
-            for (auto oIt = predicates->begin();
-                 oIt != predicates->end(); ++oIt) {
-                auto val = (*(*oIt)->fun)(v);;
-                if (!val) {
-                    remove = true;
+            for (auto oIt = predicates->begin(); oIt != predicates->end(); ++oIt) {
+                if (!(*(*oIt)->fun)(v)) {
+                    keep = false;
                     break;
                 }
             }
-            if (!remove) std::cout << v << " ";
+            if (keep)
+                result->push_back(mappingFunction(v));
+        }
+        return result;
+    }
+
+    template<class T>
+    std::deque<T> *stream<T>::toDeque() {
+        checkConsumed(true);
+        std::deque<T> *result = new std::deque<T>();
+
+        for (auto it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
+            bool keep = true;
+            T v = (*it);
+            for (auto oIt = predicates->begin(); oIt != predicates->end(); ++oIt) {
+                auto val = (*(*oIt)->fun)(v);;
+                if (!val) {
+                    keep = false;
+                    break;
+                }
+            }
+            if (keep) result->push_back(v);
+        }
+        return result;
+    }
+
+    template<class T>
+    std::forward_list<T> *stream<T>::toForwardList() {
+        checkConsumed(true);
+        std::forward_list<T> *result = new std::forward_list<T>();
+
+        for (auto it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
+            bool keep = true;
+            T v = (*it);
+            for (auto oIt = predicates->begin(); oIt != predicates->end(); ++oIt) {
+                auto val = (*(*oIt)->fun)(v);;
+                if (!val) {
+                    keep = false;
+                    break;
+                }
+            }
+            if (keep) result->push_front(v);
+        }
+        return result;
+    }
+
+    template<class T>
+    std::list<T> *stream<T>::toList() {
+        checkConsumed(true);
+        std::list<T> *result = new std::list<T>();
+
+        for (auto it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
+            bool keep = true;
+            T v = (*it);
+            for (auto oIt = predicates->begin(); oIt != predicates->end(); ++oIt) {
+                if (!(*(*oIt)->fun)(v)) {
+                    keep = false;
+                    break;
+                }
+            }
+            if (keep) result->push_back(v);
+        }
+        return result;
+    }
+
+
+    template<class T>
+    stream<T> *stream<T>::peek() {
+        for (auto it = underlyingVector->begin(); it != underlyingVector->end(); ++it) {
+            auto keep = true;
+            T v = (*it);
+            for (auto oIt = predicates->begin(); oIt != predicates->end(); ++oIt) {
+                auto val = (*(*oIt)->fun)(v);;
+                if (!val) {
+                    keep = false;
+                    break;
+                }
+            }
+            if (keep) std::cout << v << " ";
         }
         std::cout << std::endl;
         return this;
     }
 
     template<class T>
-    template<class R>
-    R stream<T>::executeMappingOperation(streamOperation<R(T)> *operation,
-                                         T value) {
-        auto function = (*operation->fun);
-        return function(value);
-    }
-
-    template<class T>
     void stream<T>::checkConsumed(bool consume) {
         if (this->consumed) throw new streamAlreadyConsumedException();
         this->consumed = consume;
+    }
+
+    template<class T>
+    stream<T>::~stream() {
+        delete (underlyingVector);
+        for (auto &predicate : *predicates) delete (predicate);
+        delete (predicates);
     }
 }
 
