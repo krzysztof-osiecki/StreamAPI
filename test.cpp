@@ -474,7 +474,7 @@ void firstTest() {
             ->peek();
     testStream2
             ->filter(ff)
-            ->map(([](int a) { return a + 0.1; }))
+            ->map((std::function<double(int)>)([](int a) { return a + 0.1; }))
             ->peek();
     testStream3
             ->filter(ff)

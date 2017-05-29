@@ -6,14 +6,6 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Kylo55/ClionProjects/StreamApi/main.cpp
-stream.hpp
-C:/Users/Kylo55/ClionProjects/StreamApi/stream.hpp
-ctime
--
-chrono
--
-
 C:/Users/Kylo55/ClionProjects/StreamApi/stream.hpp
 iostream
 -
@@ -26,5 +18,13 @@ functional
 forward_list
 -
 list
+-
+
+C:/Users/Kylo55/ClionProjects/StreamApi/test.cpp
+stream.hpp
+C:/Users/Kylo55/ClionProjects/StreamApi/stream.hpp
+ctime
+-
+chrono
 -
 

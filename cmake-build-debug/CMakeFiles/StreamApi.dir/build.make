@@ -56,38 +56,38 @@ include CMakeFiles/StreamApi.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/StreamApi.dir/flags.make
 
-CMakeFiles/StreamApi.dir/main.cpp.obj: CMakeFiles/StreamApi.dir/flags.make
-CMakeFiles/StreamApi.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Kylo55\ClionProjects\StreamApi\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/StreamApi.dir/main.cpp.obj"
-	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\StreamApi.dir\main.cpp.obj -c C:\Users\Kylo55\ClionProjects\StreamApi\main.cpp
+CMakeFiles/StreamApi.dir/test.cpp.obj: CMakeFiles/StreamApi.dir/flags.make
+CMakeFiles/StreamApi.dir/test.cpp.obj: ../test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Kylo55\ClionProjects\StreamApi\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/StreamApi.dir/test.cpp.obj"
+	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\StreamApi.dir\test.cpp.obj -c C:\Users\Kylo55\ClionProjects\StreamApi\test.cpp
 
-CMakeFiles/StreamApi.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/StreamApi.dir/main.cpp.i"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Kylo55\ClionProjects\StreamApi\main.cpp > CMakeFiles\StreamApi.dir\main.cpp.i
+CMakeFiles/StreamApi.dir/test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/StreamApi.dir/test.cpp.i"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Kylo55\ClionProjects\StreamApi\test.cpp > CMakeFiles\StreamApi.dir\test.cpp.i
 
-CMakeFiles/StreamApi.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/StreamApi.dir/main.cpp.s"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Kylo55\ClionProjects\StreamApi\main.cpp -o CMakeFiles\StreamApi.dir\main.cpp.s
+CMakeFiles/StreamApi.dir/test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/StreamApi.dir/test.cpp.s"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Kylo55\ClionProjects\StreamApi\test.cpp -o CMakeFiles\StreamApi.dir\test.cpp.s
 
-CMakeFiles/StreamApi.dir/main.cpp.obj.requires:
+CMakeFiles/StreamApi.dir/test.cpp.obj.requires:
 
-.PHONY : CMakeFiles/StreamApi.dir/main.cpp.obj.requires
+.PHONY : CMakeFiles/StreamApi.dir/test.cpp.obj.requires
 
-CMakeFiles/StreamApi.dir/main.cpp.obj.provides: CMakeFiles/StreamApi.dir/main.cpp.obj.requires
-	$(MAKE) -f CMakeFiles\StreamApi.dir\build.make CMakeFiles/StreamApi.dir/main.cpp.obj.provides.build
-.PHONY : CMakeFiles/StreamApi.dir/main.cpp.obj.provides
+CMakeFiles/StreamApi.dir/test.cpp.obj.provides: CMakeFiles/StreamApi.dir/test.cpp.obj.requires
+	$(MAKE) -f CMakeFiles\StreamApi.dir\build.make CMakeFiles/StreamApi.dir/test.cpp.obj.provides.build
+.PHONY : CMakeFiles/StreamApi.dir/test.cpp.obj.provides
 
-CMakeFiles/StreamApi.dir/main.cpp.obj.provides.build: CMakeFiles/StreamApi.dir/main.cpp.obj
+CMakeFiles/StreamApi.dir/test.cpp.obj.provides.build: CMakeFiles/StreamApi.dir/test.cpp.obj
 
 
 # Object files for target StreamApi
 StreamApi_OBJECTS = \
-"CMakeFiles/StreamApi.dir/main.cpp.obj"
+"CMakeFiles/StreamApi.dir/test.cpp.obj"
 
 # External object files for target StreamApi
 StreamApi_EXTERNAL_OBJECTS =
 
-StreamApi.exe: CMakeFiles/StreamApi.dir/main.cpp.obj
+StreamApi.exe: CMakeFiles/StreamApi.dir/test.cpp.obj
 StreamApi.exe: CMakeFiles/StreamApi.dir/build.make
 StreamApi.exe: CMakeFiles/StreamApi.dir/linklibs.rsp
 StreamApi.exe: CMakeFiles/StreamApi.dir/objects1.rsp
@@ -100,7 +100,7 @@ CMakeFiles/StreamApi.dir/build: StreamApi.exe
 
 .PHONY : CMakeFiles/StreamApi.dir/build
 
-CMakeFiles/StreamApi.dir/requires: CMakeFiles/StreamApi.dir/main.cpp.obj.requires
+CMakeFiles/StreamApi.dir/requires: CMakeFiles/StreamApi.dir/test.cpp.obj.requires
 
 .PHONY : CMakeFiles/StreamApi.dir/requires
 

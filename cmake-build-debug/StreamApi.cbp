@@ -82,7 +82,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/Kylo55/ClionProjects/StreamApi/main.cpp">
+		<Unit filename="C:/Users/Kylo55/ClionProjects/StreamApi/test.cpp">
 			<Option target="StreamApi"/>
 		</Unit>
 		<Unit filename="C:/Users/Kylo55/ClionProjects/StreamApi/CMakeLists.txt">

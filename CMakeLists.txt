@@ -3,5 +3,5 @@ project(StreamApi)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -std=c++11")
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES test.cpp)
 add_executable(StreamApi ${SOURCE_FILES})

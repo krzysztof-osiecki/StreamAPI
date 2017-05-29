@@ -14,6 +14,7 @@
 \usepackage{pdfpages}
 \usepackage{hyperref}
 \usepackage{tabularx} 
+\usepackage{pdfpages}
 \usepackage{amsthm}
 \usepackage{color}
 \definecolor{lightgray}{rgb}{.9,.9,.9}
@@ -69,8 +70,7 @@
 \title{API funkcyjne w języku C++}
 \author{Krzysztof Osiecki}
 \begin{document}\pagestyle{fancy}\lhead{}\rightmark
-
-\maketitle
+\includepdf{tytul.pdf}
 \tableofcontents{}
 \chapter*{Wstęp}
 Programowanie samo w sobie jest procesem mającym na celu stworzenie działającego oprogramowania. W celu wykonania całego tego procesu podejmuje się wiele działań. Etapami procesu programowania są: projektowanie, testowanie i utrzymanie kodu, a także przede wszystkim to co może być przez niektórych utożsamiane z programowaniem, czyli pisanie kodu programów. Obecnie dąży się do strukturalizowania każdego z tych etapów. Powstały różne metodyki oraz modele, mające ułatwić zarządzanie wytwarzaniem oprogramowania. Są one różne w zależności od skali projektów, terminów czy stopnia wydajności, bądź zdolności do podejmowania autonomicznych decyzji przez programistów. U podstaw każdej z metodyk leży ostatecznie kod programu. Kod, który może być napisany na wiele sposobów w wielu językach programowania. Podobnie jak w przypadku metodyk, języki różnią się między sobą stopniem dopasowania do konkretnych rozwiązań. Niniejsza praca przedstawia ogólny podział języków programowania, ze względu na podejście do tworzenia kodu, skupiając się głównie na podejściu funkcyjnym. W pierwszym rozdziale zostaną przedstawione ogólne koncepcje, które pozwalają na funkcyjne tworzenie kodu niezależnie od języka. Rozdział drugi ma na celu porównanie dwóch głównych paradygmatów programowania oraz prezentacje zalet paradygmatu funkcyjnego. W rozdziale trzecim, opisane zostały gotowe rozwiązania, zaimplementowane w różnych językach pozwalające, na funkcyjną obsługę kolekcji, oraz posługiwania się funkcjami jako obiektami domknięcia. Ostatni rozdział przedstawia przygotowane API. API z języka angielskiego \verb|Aplication Programing Interface|, czyli interfejs programowania aplikacji, oznacza zbiór funkcji oferowanych w tym przypadku w postaci biblioteki do języka \verb|C++|. Przygotowane rozwiązanie ma umożliwić funkcyjną obsługę kolekcji w języku \verb|C++|. 

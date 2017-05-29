@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/StreamApi.dir/main.cpp.obj"
+  "CMakeFiles/StreamApi.dir/test.cpp.obj"
   "StreamApi.pdb"
   "StreamApi.exe"
   "StreamApi.exe.manifest"

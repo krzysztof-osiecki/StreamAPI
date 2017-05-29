@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/Kylo55/ClionProjects/StreamApi/main.cpp" "C:/Users/Kylo55/ClionProjects/StreamApi/cmake-build-debug/CMakeFiles/StreamApi.dir/main.cpp.obj"
+  "C:/Users/Kylo55/ClionProjects/StreamApi/test.cpp" "C:/Users/Kylo55/ClionProjects/StreamApi/cmake-build-debug/CMakeFiles/StreamApi.dir/test.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
